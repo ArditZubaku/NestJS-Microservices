@@ -5,9 +5,20 @@ services:
       dockerfile: ./apps/reservations/Dockerfile
       target: development
       #overriding the CMD command
-    command: pnpm run start:dev reservations
+    command: yarn start:dev reservations
     ports:
       - '3021:3021'
+    volumes:
+      - .:/usr/src/app
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: development
+      #overriding the CMD command
+    command: yarn start:dev auth
+    ports:
+      - '3022:3022'
     volumes:
       - .:/usr/src/app
   mongo:

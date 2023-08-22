@@ -42,6 +42,6 @@ RUN pnpm install --prod
 COPY --from=development /usr/src/app/dist ./dist
 
 # Execute the running container
-CMD ["node","dist/apps/reservations/main"]
+CMD ["node","dist/apps/auth/main"]
 
 # Create dockerignore to omit node_modules
