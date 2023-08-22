@@ -1,0 +1,14 @@
+services:
+  reservations:
+    build:
+      context: .
+      dockerfile: ./apps/reservations/Dockerfile
+      target: development
+      #overriding the CMD command
+    command: pnpm run start:dev reservations
+    ports:
+      - '3021:3021'
+    volumes:
+      - .:/usr/src/app
+  mongo:
+    image: mongo

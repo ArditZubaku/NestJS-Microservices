@@ -82,5 +82,13 @@
     "moduleNameMapper": {
       "^@app/common(|/.*)$": "<rootDir>/libs/common/src/$1"
     }
+  },
+  "overrides": {
+    "@nestjs/mapped-types": {
+      "peerDependencies": {
+        "class-transformer": "^0.5.1",
+        "class-validator": "^0.14.0"
+      }
+    }
   }
 }
