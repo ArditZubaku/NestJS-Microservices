@@ -24,3 +24,26 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/reservations/64e50b8009aa07e482886693
+
+###
+POST http://localhost:3000/reservations
+Content-Type: application/json
+
+{
+  "startDate": "12-12/2023",
+  "endDate": "12/24-2024",
+  "placeId": "12345",
+  "invoiceId": "499"
+}
+
+###
+POST http://localhost:3000/reservations
+Content-Type: application/json
+
+{
+  "extra":"Won't go",
+  "startDate": "12-12/2023",
+  "endDate": "12/24-2024",
+  "placeId": "12345",
+  "invoiceId": "499"
+}
