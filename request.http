@@ -1,0 +1,26 @@
+POST http://localhost:3000/reservations
+Content-Type: application/json
+
+{
+  "startDate": "12/12/2023",
+  "endDate": "12/24/2024",
+  "placeId": "12345",
+  "invoiceId": "499"
+}
+
+###
+GET http://localhost:3000/reservations
+
+###
+GET http://localhost:3000/reservations/64e50b8009aa07e482886693
+
+###
+PATCH http://localhost:3000/reservations/64e50b8009aa07e482886693
+Content-Type: application/json
+
+{
+  "startDate": "12/10/2023"
+}
+
+###
+DELETE http://localhost:3000/reservations/64e50b8009aa07e482886693
