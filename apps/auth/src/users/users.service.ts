@@ -3,6 +3,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersDocument } from './models/users.schema';
 import * as bcrypt from 'bcryptjs';
+import { GetUserDto } from './dto/get-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -29,5 +30,12 @@ export class UsersService {
       throw new UnauthorizedException('Credentials are not valid!');
 
     return user;
+  }
+
+  getUser(dto: GetUserDto) {
+    // return this.usersRepository.findOne({
+    //   _id: dto._id,
+    // });
+    return this.usersRepository.findOne(dto);
   }
 }

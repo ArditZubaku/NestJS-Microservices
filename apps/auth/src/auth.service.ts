@@ -3,6 +3,7 @@ import { Response } from 'express';
 import { UsersDocument } from './users/models/users.schema';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { TokenPayload } from './interfaces/tokey-payload.interface';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,7 @@ export class AuthService {
     user: UsersDocument,
     response: Response<any, Record<string, any>>,
   ) {
-    const tokenPayload = {
+    const tokenPayload: TokenPayload = {
       userId: user._id.toHexString(),
     };
 
@@ -24,7 +25,7 @@ export class AuthService {
       expirationDate.getSeconds() + this.configService.get('JWT_EXPIRATION'),
     );
 
-    const token = this.jwtService.sign(tokenPayload);
+    const token: string = this.jwtService.sign(tokenPayload);
 
     response.cookie('Authentication', token, {
       httpOnly: true,
