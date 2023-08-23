@@ -69,8 +69,12 @@ Content-Type: application/json
   "password": "123"
 }
 
+###
+GET http://localhost:3022/users
+
 ###########################################################
 
+###
 POST http://localhost:3022/auth/login
 Content-Type: application/json
 
