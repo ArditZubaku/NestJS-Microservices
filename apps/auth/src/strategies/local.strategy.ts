@@ -6,7 +6,11 @@ import { UsersDocument } from '../users/models/users.schema';
 
 // Strategy for login
 @Injectable()
-export class LocalStrategy extends PassportStrategy(Strategy) {
+export class LocalStrategy extends PassportStrategy(
+  Strategy,
+  // by default 'local'
+  //   'myLocalStrategy',
+) {
   constructor(private readonly usersService: UsersService) {
     // The PassportStrategy one
     super({
