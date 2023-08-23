@@ -1,8 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { PaymentsModule } from './payments.module';
+import { INestApplication } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { Transport } from '@nestjs/microservices';
+import { Logger } from 'nestjs-pino';
 
 async function bootstrap() {
-  const app = await NestFactory.create(PaymentsModule);
-  await app.listen(3000);
+  const app: INestApplication = await NestFactory.create(PaymentsModule);
+  const configService: ConfigService = app.get(ConfigService);
+  app.connectMicroservice({
+    transport: Transport.TCP,
+    options: {
+      // To bind to all the available IP adresses on the machine
+      host: '0.0.0.0',
+      port: configService.get('PORT'),
+    },
+  });
+
+  app.useLogger(app.get(Logger));
+  await app.startAllMicroservices();
 }
 bootstrap();

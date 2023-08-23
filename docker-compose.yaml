@@ -25,5 +25,18 @@ services:
       - '3022:3022'
     volumes:
       - .:/usr/src/app
+  payments:
+    build:
+      context: .
+      dockerfile: ./apps/payments/Dockerfile
+      target: development
+      #overriding the CMD command
+    command: yarn start:dev payments
+    env_file:
+      - ./apps/payments/.env
+    ports:
+      - '3024:3024'
+    volumes:
+      - .:/usr/src/app
   mongo:
     image: mongo
