@@ -4,6 +4,8 @@ import { CurrentUser } from './decorators/current-user.decorator';
 import { UsersDocument } from './users/models/users.schema';
 import { Response } from 'express';
 import { LocalAuthGuard } from './users/guards/local-auth.guard';
+import { MessagePattern } from '@nestjs/microservices';
+import { JwtAuthGuard } from './users/guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -19,4 +21,10 @@ export class AuthController {
     await this.authService.login(user, response);
     response.send(user);
   }
+
+  @UseGuards(JwtAuthGuard)
+  // Allows us to accept incoming RPC calls
+  @MessagePattern('authenticate')
+  async authenticate()
+
 }
