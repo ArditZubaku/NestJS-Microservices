@@ -68,3 +68,13 @@ Content-Type: application/json
   "email":"test@gmail.com",
   "password": "123"
 }
+
+###########################################################
+
+POST http://localhost:3022/auth/login
+Content-Type: application/json
+
+{
+  "email":"test@gmail.com",
+  "password": "randomStrongPassword123_/+"
+}

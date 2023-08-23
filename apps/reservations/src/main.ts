@@ -13,6 +13,5 @@ async function bootstrap(): Promise<void> {
   app.useLogger(app.get<Logger>(Logger));
   const configService: ConfigService = app.get<ConfigService>(ConfigService);
   await app.listen(configService.get<string>('PORT'));
-  await app.listen(3021);
 }
 bootstrap();
