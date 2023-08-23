@@ -16,7 +16,7 @@ export class AuthController {
     // Setting JWT as a HTTP cookie instead of plain text
     @Res({ passthrough: true }) response: Response,
   ) {
-    this.authService.login(user, response);
+    await this.authService.login(user, response);
     response.send(user);
   }
 }

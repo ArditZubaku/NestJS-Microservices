@@ -11,7 +11,10 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  login(user: UsersDocument, response: Response<any, Record<string, any>>) {
+  async login(
+    user: UsersDocument,
+    response: Response<any, Record<string, any>>,
+  ) {
     const tokenPayload = {
       userId: user._id.toHexString(),
     };
@@ -21,11 +24,13 @@ export class AuthService {
       expirationDate.getSeconds() + this.configService.get('JWT_EXPIRATION'),
     );
 
-    const token: string = this.jwtService.sign(tokenPayload);
+    const token = this.jwtService.sign(tokenPayload);
 
     response.cookie('Authentication', token, {
       httpOnly: true,
       expires: expirationDate,
     });
+
+    return token;
   }
 }
