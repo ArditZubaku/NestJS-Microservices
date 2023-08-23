@@ -59,3 +59,12 @@ Content-Type: application/json
   "email":"test@gmail.com",
   "password": "randomStrongPassword123_/+"
 }
+
+###
+POST http://localhost:3022/users
+Content-Type: application/json
+
+{
+  "email":"test@gmail.com",
+  "password": "123"
+}

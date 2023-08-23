@@ -5,16 +5,16 @@ import { UsersModule } from './users/users.module';
 import { LoggerModule } from '@app/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import Joi from 'joi';
+import * as Joi from 'joi';
 
 @Module({
   imports: [
     UsersModule,
     LoggerModule,
     JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        imports: [ConfigModule],
-        inject: [ConfigService],
         secret: configService.get<string>('JWT_SECRET'),
         signOptions: {
           expiresIn: `${configService.get<number>('JWT_EXPIRATION')}s`, // In seconds
@@ -28,6 +28,7 @@ import Joi from 'joi';
         MONGODB_URI: Joi.string().required(),
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRATION: Joi.number().required(),
+        PORT: Joi.number().required(),
       }),
     }),
   ],
