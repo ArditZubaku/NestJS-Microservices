@@ -1,4 +1,4 @@
-import { CurrentUser } from '../decorators/current-user.decorator';
+import { CurrentUser } from '@app/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { UsersDocument } from './models/users.schema';

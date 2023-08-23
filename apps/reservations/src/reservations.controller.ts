@@ -13,7 +13,8 @@ import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationDocument } from './models/reservation.schema';
 import { FlattenMaps, Types } from 'mongoose';
-import { JwtAuthGuard } from '@app/common';
+import { JwtAuthGuard, UserDto } from '@app/common';
+import { CurrentUser } from '@app/common';
 
 @Controller('reservations')
 export class ReservationsController {
@@ -23,10 +24,12 @@ export class ReservationsController {
   @Post()
   create(
     @Body() createReservationDto: CreateReservationDto,
+    @CurrentUser() user: UserDto,
   ): Promise<ReservationDocument> {
-    return this.reservationsService.create(createReservationDto);
+    return this.reservationsService.create(createReservationDto, user._id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll(): Promise<
     (FlattenMaps<ReservationDocument> &
@@ -37,11 +40,13 @@ export class ReservationsController {
     return this.reservationsService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string): Promise<ReservationDocument> {
     return this.reservationsService.findOne(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -50,6 +55,7 @@ export class ReservationsController {
     return this.reservationsService.update(id, updateReservationDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string): Promise<
     FlattenMaps<ReservationDocument> &
