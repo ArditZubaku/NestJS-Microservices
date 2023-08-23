@@ -6,6 +6,8 @@ services:
       target: development
       #overriding the CMD command
     command: yarn start:dev reservations
+    env_file:
+      - ./apps/reservations/.env
     ports:
       - '3021:3021'
     volumes:
@@ -17,6 +19,8 @@ services:
       target: development
       #overriding the CMD command
     command: yarn start:dev auth
+    env_file:
+      - ./apps/auth/.env
     ports:
       - '3022:3022'
     volumes:
