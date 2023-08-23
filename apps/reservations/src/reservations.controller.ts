@@ -6,27 +6,39 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
+import { ReservationDocument } from './models/reservation.schema';
+import { FlattenMaps, Types } from 'mongoose';
+import { JwtAuthGuard } from '@app/common';
 
 @Controller('reservations')
 export class ReservationsController {
   constructor(private readonly reservationsService: ReservationsService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createReservationDto: CreateReservationDto) {
+  create(
+    @Body() createReservationDto: CreateReservationDto,
+  ): Promise<ReservationDocument> {
     return this.reservationsService.create(createReservationDto);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<
+    (FlattenMaps<ReservationDocument> &
+      Required<{
+        _id: Types.ObjectId;
+      }>)[]
+  > {
     return this.reservationsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<ReservationDocument> {
     return this.reservationsService.findOne(id);
   }
 
@@ -39,7 +51,12 @@ export class ReservationsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string): Promise<
+    FlattenMaps<ReservationDocument> &
+      Required<{
+        _id: Types.ObjectId;
+      }>
+  > {
     return this.reservationsService.remove(id);
   }
 }

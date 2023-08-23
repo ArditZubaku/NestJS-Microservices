@@ -17,6 +17,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       // Tell the strategy where the JWT lives
       jwtFromRequest: ExtractJwt.fromExtractors([
         (request: any) =>
+          // From express or RPC
           request?.cookies?.Authentication || request?.Authentication,
       ]),
       // The value that it will use to decode it and verify the cookie

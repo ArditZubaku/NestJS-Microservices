@@ -4,7 +4,7 @@ import { CurrentUser } from './decorators/current-user.decorator';
 import { UsersDocument } from './users/models/users.schema';
 import { Response } from 'express';
 import { LocalAuthGuard } from './users/guards/local-auth.guard';
-import { MessagePattern } from '@nestjs/microservices';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 import { JwtAuthGuard } from './users/guards/jwt-auth.guard';
 
 @Controller('auth')
@@ -25,6 +25,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   // Allows us to accept incoming RPC calls
   @MessagePattern('authenticate')
-  async authenticate()
-
+  async authenticate(@Payload() data: any) {
+    return data.user;
+  }
 }

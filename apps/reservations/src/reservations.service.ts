@@ -2,13 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationsRepository } from './reservations.repository';
+import { ReservationDocument } from './models/reservation.schema';
+import { FlattenMaps, Types } from 'mongoose';
 
 @Injectable()
 export class ReservationsService {
   constructor(
     private readonly reservationsRepository: ReservationsRepository,
   ) {}
-  create(createReservationDto: CreateReservationDto) {
+  create(
+    createReservationDto: CreateReservationDto,
+  ): Promise<ReservationDocument> {
     return this.reservationsRepository.create({
       ...createReservationDto,
       timestamp: new Date(),
@@ -16,11 +20,16 @@ export class ReservationsService {
     });
   }
 
-  findAll() {
+  findAll(): Promise<
+    (FlattenMaps<ReservationDocument> &
+      Required<{
+        _id: Types.ObjectId;
+      }>)[]
+  > {
     return this.reservationsRepository.find({});
   }
 
-  findOne(_id: string) {
+  findOne(_id: string): Promise<ReservationDocument> {
     return this.reservationsRepository.findOne({
       _id,
     });
@@ -37,7 +46,12 @@ export class ReservationsService {
     );
   }
 
-  remove(_id: string) {
+  remove(_id: string): Promise<
+    FlattenMaps<ReservationDocument> &
+      Required<{
+        _id: Types.ObjectId;
+      }>
+  > {
     return this.reservationsRepository.findOneAndDelete({ _id });
   }
 }
