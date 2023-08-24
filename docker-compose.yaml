@@ -17,7 +17,6 @@ services:
       context: .
       dockerfile: ./apps/auth/Dockerfile
       target: development
-      #overriding the CMD command
     command: yarn start:dev auth
     env_file:
       - ./apps/auth/.env
@@ -30,12 +29,24 @@ services:
       context: .
       dockerfile: ./apps/payments/Dockerfile
       target: development
-      #overriding the CMD command
     command: yarn start:dev payments
     env_file:
       - ./apps/payments/.env
-    ports:
-      - '3024:3024'
+    # Services within the same network can communicate with each other without the need to expose ports to the host machine.
+    # This is an advantage of using Docker Compose and Docker's networking capabilities.
+    # The services can communicate directly through the Docker network without requiring explicit port mappings on the host machine.
+    # ports:
+    #   - '3024:3024'
+    volumes:
+      - .:/usr/src/app
+  notifications:
+    build:
+      context: .
+      dockerfile: ./apps/notifications/Dockerfile
+      target: development
+    command: yarn start:dev notifications
+    env_file:
+      - ./apps/notifications/.env
     volumes:
       - .:/usr/src/app
   mongo:
