@@ -56,4 +56,8 @@ export class UsersService {
     // });
     return this.usersRepository.findOne(dto);
   }
+
+  getAllUsers() {
+    return this.usersRepository.find({});
+  }
 }

@@ -19,4 +19,10 @@ export class UsersController {
   async getUser(@CurrentUser() user: UsersDocument) {
     return user;
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('all')
+  getAllUsers() {
+    return this.usersService.getAllUsers();
+  }
 }

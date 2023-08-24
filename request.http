@@ -65,7 +65,7 @@ POST http://localhost:3022/users
 Content-Type: application/json
 
 {
-  "email":"test@gmail.com",
+  "email":"test2@gmail.com",
   "password": "randomStrongPassword123_/+"
 }
 
@@ -80,6 +80,9 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3022/users
+
+###
+GET http://localhost:3022/users/all
 
 ###########################################################
 

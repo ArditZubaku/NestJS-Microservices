@@ -19,9 +19,10 @@ export class ReservationsService {
       .send('create_charge', createReservationDto.charge)
       .pipe(
         // This will be executed after the response gets sent back successfully
-        map(() => {
+        map((res) => {
           return this.reservationsRepository.create({
             ...createReservationDto,
+            invoiceId: res.id,
             timestamp: new Date(),
             userId,
           });
