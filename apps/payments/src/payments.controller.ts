@@ -1,7 +1,7 @@
 import { Controller, UsePipes, ValidationPipe } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { CreateChargeDto } from '@app/common';
+import { PaymentsCreateChargeDto } from './dto/payments-create-charge.dto';
 
 @Controller()
 export class PaymentsController {
@@ -12,7 +12,7 @@ export class PaymentsController {
   // When a microservice receives a message that matches the specified pattern, the associated method will be invoked to handle the message.
   @MessagePattern('create_charge')
   @UsePipes(new ValidationPipe()) // Will automatically validate all the incoming data on this incoming payload => will validate using CreateChargeDto
-  async createCharge(@Payload() data: CreateChargeDto) {
+  async createCharge(@Payload() data: PaymentsCreateChargeDto) {
     return this.paymentsService.createCharge(data);
   }
 }
