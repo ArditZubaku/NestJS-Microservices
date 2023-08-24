@@ -13,6 +13,7 @@ async function bootstrap() {
     options: {
       // To bind to all the available IP adresses on the machine
       host: '0.0.0.0',
+      // Where we are listening
       port: configService.get('PORT'),
     },
   });
