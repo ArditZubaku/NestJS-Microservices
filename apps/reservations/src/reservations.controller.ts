@@ -25,7 +25,7 @@ export class ReservationsController {
   create(
     @Body() createReservationDto: CreateReservationDto,
     @CurrentUser() user: UserDto,
-  ): Promise<ReservationDocument> {
+  ) {
     return this.reservationsService.create(createReservationDto, user._id);
   }
 

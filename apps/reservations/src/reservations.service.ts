@@ -6,22 +6,27 @@ import { ReservationDocument } from './models/reservation.schema';
 import { FlattenMaps, Types } from 'mongoose';
 import { PAYMENTS_SERVICE } from '@app/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { map } from 'rxjs';
 
 @Injectable()
 export class ReservationsService {
   constructor(
     private readonly reservationsRepository: ReservationsRepository,
-    @Inject(PAYMENTS_SERVICE) paymentsService: ClientProxy,
+    @Inject(PAYMENTS_SERVICE) private readonly paymentsService: ClientProxy,
   ) {}
-  async create(
-    createReservationDto: CreateReservationDto,
-    userId: string,
-  ): Promise<ReservationDocument> {
-    return this.reservationsRepository.create({
-      ...createReservationDto,
-      timestamp: new Date(),
-      userId,
-    });
+  async create(createReservationDto: CreateReservationDto, userId: string) {
+    return this.paymentsService
+      .send('create_charge', createReservationDto.charge)
+      .pipe(
+        // This will be executed after the response gets sent back successfully
+        map(() => {
+          return this.reservationsRepository.create({
+            ...createReservationDto,
+            timestamp: new Date(),
+            userId,
+          });
+        }),
+      );
   }
 
   async findAll(): Promise<
