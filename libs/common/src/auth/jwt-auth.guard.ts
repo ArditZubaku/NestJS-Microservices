@@ -4,7 +4,7 @@ import {
   Inject,
   Injectable,
 } from '@nestjs/common';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { AUTH_SERVICE } from '../constants/services';
 import { ClientProxy } from '@nestjs/microservices';
 import { UserDto } from '../dto';
@@ -34,6 +34,8 @@ export class JwtAuthGuard implements CanActivate {
         }),
         // Return true if we have a successful response back from the auth microservice => canActivate proceeds
         map(() => true),
+        // Returns false if any error occurs => the error will be returned by the service that is being injected
+        catchError(() => of(false)),
       );
   }
 }
