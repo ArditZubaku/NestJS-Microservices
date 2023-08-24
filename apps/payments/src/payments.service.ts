@@ -14,21 +14,21 @@ export class PaymentsService {
     },
   );
 
-  async createCharge({ card, amount }: CreateChargeDto) {
-    const paymentMethod = await this.stripe.paymentMethods.create({
-      type: 'card',
-      card,
-    });
+  async createCharge({ /* card, */ amount }: CreateChargeDto) {
+    // const paymentMethod = await this.stripe.paymentMethods.create({
+    //   type: 'card',
+    //   card,
+    // });
 
     const paymentIntent = await this.stripe.paymentIntents.create({
       // References the paymentMethod above, so it charges its card correctly
-      payment_method: paymentMethod.id,
+      // payment_method: paymentMethod.id, // Commented it out to use the ones that test card that Stripe offers instead of our custom one.
       amount: amount * 100, // Cents -> Euro
       confirm: true, // charge the user immediately
-      payment_method_types: ['card'],
+      // payment_method_types: ['card'], // Reason above
       currency: 'eur',
+      payment_method: 'pm_card_visa', // The Stripe one
     });
-
     return paymentIntent;
   }
 }
