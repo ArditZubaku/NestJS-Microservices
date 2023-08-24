@@ -1,16 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationsRepository } from './reservations.repository';
 import { ReservationDocument } from './models/reservation.schema';
 import { FlattenMaps, Types } from 'mongoose';
+import { PAYMENTS_SERVICE } from '@app/common';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class ReservationsService {
   constructor(
     private readonly reservationsRepository: ReservationsRepository,
+    @Inject(PAYMENTS_SERVICE) paymentsService: ClientProxy,
   ) {}
-  create(
+  async create(
     createReservationDto: CreateReservationDto,
     userId: string,
   ): Promise<ReservationDocument> {
@@ -21,7 +24,7 @@ export class ReservationsService {
     });
   }
 
-  findAll(): Promise<
+  async findAll(): Promise<
     (FlattenMaps<ReservationDocument> &
       Required<{
         _id: Types.ObjectId;
@@ -30,13 +33,13 @@ export class ReservationsService {
     return this.reservationsRepository.find({});
   }
 
-  findOne(_id: string): Promise<ReservationDocument> {
+  async findOne(_id: string): Promise<ReservationDocument> {
     return this.reservationsRepository.findOne({
       _id,
     });
   }
 
-  update(_id: string, updateReservationDto: UpdateReservationDto) {
+  async update(_id: string, updateReservationDto: UpdateReservationDto) {
     return this.reservationsRepository.findOneAndUpdate(
       {
         _id,
@@ -47,7 +50,7 @@ export class ReservationsService {
     );
   }
 
-  remove(_id: string): Promise<
+  async remove(_id: string): Promise<
     FlattenMaps<ReservationDocument> &
       Required<{
         _id: Types.ObjectId;
