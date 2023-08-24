@@ -34,6 +34,10 @@ export class PaymentsService {
       // payment_method_types: ['card'], // Reason above
       currency: 'eur',
       payment_method: 'pm_card_visa', // The Stripe one
+      automatic_payment_methods: {
+        enabled: true,
+        allow_redirects: 'never',
+      },
     });
 
     this.notificationsService.emit('notify_email', {

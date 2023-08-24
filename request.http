@@ -65,7 +65,7 @@ POST http://localhost:3022/users
 Content-Type: application/json
 
 {
-  "email":"test2@gmail.com",
+  "email":"zubaku92@gmail.com",
   "password": "randomStrongPassword123_/+"
 }
 
@@ -91,6 +91,6 @@ POST http://localhost:3022/auth/login
 Content-Type: application/json
 
 {
-  "email":"test@gmail.com",
+  "email":"zubaku92@gmail.com",
   "password": "randomStrongPassword123_/+"
 }
