@@ -18,12 +18,12 @@ export class NotificationsService {
     },
   });
 
-  async notifyEmail({ email }: NotifyEmailDto) {
+  async notifyEmail({ email, text }: NotifyEmailDto) {
     await this.mailer.sendMail({
       from: this.configService.get('SMTP_USER'),
       to: email,
       subject: 'NestJS Microservice - Notifications',
-      text: 'Test text',
+      text,
     });
   }
 }
