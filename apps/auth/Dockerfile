@@ -14,7 +14,7 @@ RUN apk add --no-cache yarn
 
 
 # Installing node_modules
-RUN yarn
+RUN yarn install
 
 # Copying the entire project from here where we are to /usr/src/app
 # COPY . .
@@ -22,6 +22,9 @@ RUN yarn
 # Copying only the auth project and its needs from here where we are to /usr/src/app
 COPY apps/auth apps/auth
 COPY libs libs
+
+## Installing the node_modules needed only for auth
+RUN cd apps/auth && yarn install
 
 # Building the project using the package-json script
 RUN yarn build

@@ -12,7 +12,6 @@ COPY tsconfig.json tsconfig.json
 # Installing yarn using apk
 RUN apk add --no-cache yarn
 
-
 # Installing node_modules
 RUN yarn
 
@@ -22,6 +21,9 @@ RUN yarn
 # Copying only the notifications project and  from here where we are to /usr/src/app
 COPY apps/notifications apps/notifications
 COPY libs libs
+
+## Installing the node_modules needed only for notifications
+RUN cd apps/notifications && yarn install
 
 # Building the project using the package-json script
 RUN yarn build

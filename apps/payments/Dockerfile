@@ -23,6 +23,9 @@ RUN yarn
 COPY apps/payments apps/payments
 COPY libs libs
 
+## Installing the node_modules needed only for payments
+RUN cd apps/payments && yarn install
+
 # Building the project using the package-json script
 RUN yarn build
 
