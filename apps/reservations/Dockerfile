@@ -7,6 +7,7 @@ WORKDIR /usr/src/app
 # './' refers to /usr/src/app
 COPY package.json ./
 COPY yarn.lock ./
+COPY tsconfig.json tsconfig.json
 
 # Installing yarn using apk
 RUN apk add --no-cache yarn
@@ -15,7 +16,12 @@ RUN apk add --no-cache yarn
 RUN yarn
 
 # Copying the entire project from here where we are to /usr/src/app
-COPY . .
+# COPY . .
+
+# Copying only the reservations project and it's needs from here where we are to /usr/src/app
+COPY apps/reservations apps/reservations
+COPY libs libs
+
 
 # Building the project using the package-json script
 RUN yarn build

@@ -5,7 +5,7 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UsersDocument } from './models/users.schema';
+import { UsersDocument } from '@app/common';
 import * as bcrypt from 'bcryptjs';
 import { GetUserDto } from './dto/get-user.dto';
 

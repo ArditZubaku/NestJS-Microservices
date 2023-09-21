@@ -7,6 +7,7 @@ WORKDIR /usr/src/app
 # './' referres to /usr/src/app
 COPY package.json ./
 COPY yarn.lock ./
+COPY tsconfig.json tsconfig.json
 
 # Installing yarn using apk
 RUN apk add --no-cache yarn
@@ -16,7 +17,11 @@ RUN apk add --no-cache yarn
 RUN yarn
 
 # Copying the entire project from here where we are to /usr/src/app
-COPY . .
+# COPY . .
+
+# Copying only the auth project and its needs from here where we are to /usr/src/app
+COPY apps/auth apps/auth
+COPY libs libs
 
 # Building the project using the package-json script
 RUN yarn build
