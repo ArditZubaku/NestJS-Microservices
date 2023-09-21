@@ -1,16 +1,15 @@
 # Development image
-FROM node:alpine As development
+FROM node:alpine AS development
 
 # Setting the working directory where all the below actions will take place
 WORKDIR /usr/src/app
 
-# './' referres to /usr/src/app
+# './' refers to /usr/src/app
 COPY package.json ./
 COPY yarn.lock ./
 
 # Installing yarn using apk
 RUN apk add --no-cache yarn
-
 
 # Installing node_modules
 RUN yarn
@@ -22,9 +21,9 @@ COPY . .
 RUN yarn build
 
 # Production image
-FROM node:alpine As production
+FROM node:alpine AS production
 
-# Argument that can be overriden at build time
+# Argument that can be overridden at build time
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
@@ -33,15 +32,13 @@ WORKDIR /usr/src/app
 COPY package.json ./
 COPY yarn.lock ./
 
-RUN npm install -g yarn
-
 # Without dev dependencies
-RUN pnpm install --prod
+RUN yarn install --production
 
 # Copy from development above the dist folder to the current dist folder
 COPY --from=development /usr/src/app/dist ./dist
 
 # Execute the running container
-CMD ["node","dist/apps/reservations/main"]
+CMD ["node", "dist/apps/reservations/main"]
 
-# Create dockerignore to omit node_modules
+# Create a .dockerignore file to omit node_modules

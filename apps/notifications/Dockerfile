@@ -33,10 +33,8 @@ WORKDIR /usr/src/app
 COPY package.json ./
 COPY yarn.lock ./
 
-RUN npm install -g yarn
-
 # Without dev dependencies
-RUN pnpm install --prod
+RUN yarn install --production
 
 # Copy from development above the dist folder to the current dist folder
 COPY --from=development /usr/src/app/dist ./dist
