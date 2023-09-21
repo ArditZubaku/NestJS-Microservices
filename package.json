@@ -87,8 +87,5 @@
     "moduleNameMapper": {
       "^@app/common(|/.*)$": "<rootDir>/libs/common/src/$1"
     }
-  },
-  "resolutions": {
-    "ts-loader/webpack": "5.0.0"
   }
 }
