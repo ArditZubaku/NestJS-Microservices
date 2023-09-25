@@ -12,10 +12,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async login(
-    user: UsersDocument,
-    response: Response<any, Record<string, any>>,
-  ) {
+  async login(user: UsersDocument, response: Response) {
     const tokenPayload: TokenPayload = {
       userId: user._id.toHexString(),
     };

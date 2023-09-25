@@ -125,7 +125,7 @@ Content-Type: application/json
   "placeId": "12345",
   "invoiceId": "499",
   "charge": {
-    "amount": 5,
+    "amount": 20,
     "card": {
       "cvc": "413",
       "exp_month": 12,
