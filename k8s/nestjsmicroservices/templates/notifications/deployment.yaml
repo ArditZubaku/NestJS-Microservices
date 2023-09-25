@@ -17,3 +17,22 @@ spec:
       containers:
         - image: us-east4-docker.pkg.dev/nestjsmicroservicenotification/notifications/production
           name: notifications
+          env:
+            - name: PORT
+              value: '3000'
+            - name: GOOGLE_OAUTH_CLIENT_ID
+              value: 594878323355-mfr2thi1nl7pdp6hv1q7m5bds5g7vqjv.apps.googleusercontent.com
+            - name: SMTP_USER
+              value: zubaku92@gmail.com
+            - name: GOOGLE_OAUTH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: google
+                  key: clientSecret
+            - name: GOOGLE_OAUTH_REFRESH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: google
+                  key: refreshToken
+          ports:
+            - containerPort: 3000
