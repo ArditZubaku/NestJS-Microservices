@@ -95,5 +95,45 @@ Content-Type: application/json
   "password": "randomStrongPassword123_/+"
 }
 
+#######################################################################################################
+
+###
+POST http://localhost:30511/users
+Content-Type: application/json
+
+{
+  "email":"test@gmail.com",
+  "password": "superstrongP@ssword123"
+}
+
+###
+POST http://localhost:30511/auth/login
+Content-Type: application/json
+
+{
+  "email":"test@gmail.com",
+  "password": "superstrongP@ssword123"
+}
+
+###
+POST http://localhost:31702/reservations
+Content-Type: application/json
+
+{
+  "startDate": "12-12/2023",
+  "endDate": "12/24/2024",
+  "placeId": "12345",
+  "invoiceId": "499",
+  "charge": {
+    "amount": 5,
+    "card": {
+      "cvc": "413",
+      "exp_month": 12,
+      "exp_year": 2030,
+      "number": "4242 4242 4242 4242"
+    }
+  }
+}
+
 ###
 GET http://localhost:31702/reservations
