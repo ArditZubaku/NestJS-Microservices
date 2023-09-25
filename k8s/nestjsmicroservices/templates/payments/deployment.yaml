@@ -17,3 +17,20 @@ spec:
       containers:
         - image: us-east4-docker.pkg.dev/nestjsmicroservicenotification/payments/production
           name: payments
+          env:
+            - name: PORT
+              value: '3001'
+            - name: NOTIFICATIONS_HOST
+              value: notifications
+            - name: NOTIFICATIONS_PORT
+              value: '3000'
+              # In which env variable we need to inject
+            - name: STRIPE_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  # Which secret to inject
+                  name: stripe
+                  # Value of the secret
+                  key: apiKey
+          ports:
+            - containerPort: 3001
