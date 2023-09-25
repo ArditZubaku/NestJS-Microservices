@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "nestjsmicroservicenotification",
+  "private_key_id": "39be13d8852aa9467b429d6a8c6d692f7a995000",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDm34/VLbRCrEBK\nygvpKqhApovZ5oIJ9R1+JSzqobrxCWUUPI8SmtsNbZOe18N/fojDWC/YIPS9cJNd\nCtGnS0iMGct9sbY2/bqOGL6JzQV2f6If3m4aHeY5YXQfSgJrBYwnOpwtYflSvTZZ\ncXnOLPGB80DbKL3Bkq6eNgWBnG92uVsWH9AV4NbrKzMulw1QbsqKa4mLWD0bshFr\nOotqFEgdn3G+d4Po295dWrtNPXGgd9TGxzaX/uCvO/wtkrq5dihdkrKigxXm5nBW\nLXJsXmvxDa4fBaTp2nwhCUG24FGMCnrPhZMBd58XH6te0WwA3KMwrYvecvQq9nau\nrGGYW2/lAgMBAAECggEAHmn+HzW9pPjfIVsblZRehOHL06FHqTsmrvsDv0ceAunb\nbH6L1IYc7FhulYLUCMQpDR7dcqnow9oEN8IYm2LSBE7TnVPfbsAfJuAAndOp8BHh\nUDRzqbIdpZp+ey67QdEBxRs1/s6E008EzWSjCLOn/xgGB7kGwmzp3wK71/a9QlTp\nlsS30vcwnOExssT8p9oFBRsncKQtLbPHRhnPWWFp47riD+vf3BnFrV6k0RIBFUcp\nTJUedSAk/g4x1CB+eV8a2miHxGS7q1NLRM1BNOwAoPRvIW+Vhm/FruxXYMOsXNCO\nmISfJySwZnYuu+fyHvqiUvQ3+XRpMbMktUGAEBSkYwKBgQD/Zss8r8xXRs1vTiWv\nw9/Zz92lhBvJRFCzzEm1z18m0Y3sqym6frzL4ajVh/4aEViGopKTKmt6cZeq+KKG\nxHvFxoazFf7eF708GdyqCH8AgVdTLHxxdE/nvBf7vdpuSCELXC5yUfOEMl+8Ymdk\nmvGtsBAZDRT3FBOrLC18OsNFcwKBgQDnag3pl2uksKmoLtJ+GMrAimT0clmuCW8f\n+mKFeqksHaeyvsSfl1n7e+DNJy2ioSDrQoMn0RHgT9e1HAVmrjnoYRGoE/OiH9/m\n0434I6uKx50W2wfJSi5uxmhchRjkEPUXWjf88nmMNDbn+H6qdNM+R8z3xaDdOaDD\nSMludXzfRwKBgQCX5klGJMCBwAh7BJ2Bdhvy7aBDytjD0a+13/CPA3DyI3wnoH1H\nAA3FrMa/iQxl8J8YJCTNBlO6FUlBVHNFeCKtNC/030YgTTotPqxxLHBsmoCXZUP2\nLlk/2Czjer0pDhkpKoAtWfRdUaCC6HvZ6BWJWceZPqCTewtfqPy8gC6XZQKBgAac\nMOmLObfqk+4J6FlRu/jj+x5AZe9itZnkPQwzBMIN1sx0RomIeTmFwFYb2GHc2GPf\n8n8gqbIOlcrGkiDsuRq6Kxbx+vOWlX6ybEu6ORwtt37/oqlNRSZE5JY/9wYMtfOE\n0DSZeH9YvnjB0FxuGdqdkm1BZ+bpzn3FhntxP6/hAoGABAe91yU5RIEFf2EAvKPl\n9ur4gtQd67U9VOKjMt7OSX1EbnS5LAyz5/Hjt1+Vpz+5zhd61w9KAKsnrzscSsTf\nB6M4piW5KM+eXf3B2eCtJPz9fXIdJ4idBLY/qbQo7Tw2IPDBQNarBEcwxiyHNNBY\nXVJCCy8gbXVxK/dXLNzrf0w=\n-----END PRIVATE KEY-----\n",
+  "client_email": "artifact-image-pull@nestjsmicroservicenotification.iam.gserviceaccount.com",
+  "client_id": "103911768675278576177",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/artifact-image-pull%40nestjsmicroservicenotification.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
