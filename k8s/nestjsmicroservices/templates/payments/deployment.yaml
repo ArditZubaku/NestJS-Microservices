@@ -16,13 +16,4 @@ spec:
     spec:
       containers:
         - image: us-east4-docker.pkg.dev/nestjsmicroservicenotification/payments/production
-          name: production
-          env:
-            # In which env variable we need to inject
-            - name: MONGODB_URI
-              valueFrom:
-                secretKeyRef:
-                  # Which secret to inject
-                  name: mongodb
-                  # Value of the secret
-                  key: connectionString
+          name: payments
