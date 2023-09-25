@@ -18,11 +18,23 @@ spec:
         - image: us-east4-docker.pkg.dev/nestjsmicroservicenotification/reservations/production
           name: reservations
           env:
-          # In which env variable we need to inject
+            # In which env variable we need to inject
             - name: MONGODB_URI
               valueFrom:
                 secretKeyRef:
-                # Which secret to inject
+                  # Which secret to inject
                   name: mongodb
                   # Value of the secret
                   key: connectionString
+            - name: PORT
+              value: '3004'
+            - name: AUTH_HOST
+              value: auth
+            - name: AUTH_PORT
+              value: '3002'
+            - name: PAYMENTS_HOST
+              value: payments
+            - name: PAYMENTS_PORT
+              value: '3001'
+          ports:
+            - containerPort: 3004
