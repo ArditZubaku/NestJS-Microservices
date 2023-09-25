@@ -94,3 +94,6 @@ Content-Type: application/json
   "email":"zubaku92@gmail.com",
   "password": "randomStrongPassword123_/+"
 }
+
+###
+GET http://localhost:31702/reservations
