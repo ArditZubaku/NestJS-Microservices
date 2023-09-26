@@ -137,3 +137,6 @@ Content-Type: application/json
 
 ###
 GET http://localhost:31702/reservations
+
+### Health check
+GET http://localhost:3021/
