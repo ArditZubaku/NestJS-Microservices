@@ -1,0 +1,35 @@
+services:
+  e2e:
+    build:
+      dockerfile: ./Dockerfile
+    volumes:
+      # The changes we make in the specs file will be reflected automatically in the container
+      - ./specs:/usr/src/app/specs
+    depends_on:
+      - reservations
+      - auth
+      - payments
+      - notifications
+      - mongo
+  reservations:
+    image: us-east4-docker.pkg.dev/nestjsmicroservicenotification/reservations/production
+    env_file:
+      - ../apps/reservations/.env
+    ports:
+      - '3021:3021'
+  auth:
+    image: us-east4-docker.pkg.dev/nestjsmicroservicenotification/auth/production
+    env_file:
+      - ../apps/auth/.env
+    ports:
+      - '3022:3022'
+  payments:
+    image: us-east4-docker.pkg.dev/nestjsmicroservicenotification/payments/production
+    env_file:
+      - ../apps/payments/.env
+  notifications:
+    image: us-east4-docker.pkg.dev/nestjsmicroservicenotification/notifications/production
+    env_file:
+      - ../apps/notifications/.env
+  mongo:
+    image: mongo
