@@ -98,25 +98,25 @@ Content-Type: application/json
 #######################################################################################################
 
 ###
-POST http://localhost:30511/users
+POST http://35.201.84.140/users
 Content-Type: application/json
 
 {
-  "email":"test@gmail.com",
+  "email":"zubaku92@gmail.com",
   "password": "superstrongP@ssword123"
 }
 
 ###
-POST http://localhost:30511/auth/login
+POST http://35.201.84.140/auth/login
 Content-Type: application/json
 
 {
-  "email":"test@gmail.com",
+  "email":"zubaku92@gmail.com",
   "password": "superstrongP@ssword123"
 }
 
 ###
-POST http://localhost:31702/reservations
+POST http://35.201.84.140/reservations/
 Content-Type: application/json
 
 {
@@ -125,7 +125,7 @@ Content-Type: application/json
   "placeId": "12345",
   "invoiceId": "499",
   "charge": {
-    "amount": 20,
+    "amount": 45,
     "card": {
       "cvc": "413",
       "exp_month": 12,
@@ -136,7 +136,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:31702/reservations
+GET http://35.201.84.140/reservations/
 
 ### Health check
 GET http://localhost:3021/
