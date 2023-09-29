@@ -25,10 +25,14 @@ services:
       - '3022:3022'
   payments:
     image: us-east4-docker.pkg.dev/nestjsmicroservicenotification/payments/production
+    ports:
+      - '3024:3024'
     env_file:
       - ../apps/payments/.env
   notifications:
     image: us-east4-docker.pkg.dev/nestjsmicroservicenotification/notifications/production
+    ports:
+      - '3025:3025'
     env_file:
       - ../apps/notifications/.env
   mongo:
