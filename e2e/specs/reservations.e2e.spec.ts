@@ -1,19 +1,28 @@
-describe('Reservations', (): void => {
-  beforeAll(async (): Promise<void> => {
-    const user: {
-      email: string;
-      password: string;
-    } = {
+describe('Reservations', () => {
+  beforeAll(async () => {
+    const user = {
       email: 'zubaku92@gmail.com',
-      password: 'strongPassword123!!!',
+      password: 'StrongPassword123!@',
     };
-    await fetch('http://auth:30021', {
+    await fetch('http://auth:3022/users', {
       method: 'POST',
-      body: JSON.stringify({
-        user,
-      }),
+      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
+    const response = await fetch('http://auth:3022/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const jwt = await response.text();
+    console.log(jwt);
   });
 
-  test('Create', () => {});
+  test('Create & Get', async () => {
+    expect(true).toBeTruthy();
+  });
 });

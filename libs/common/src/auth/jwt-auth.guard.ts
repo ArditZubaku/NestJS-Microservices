@@ -20,8 +20,8 @@ export class JwtAuthGuard implements CanActivate {
   ): boolean | Promise<boolean> | Observable<boolean> {
     // Where to get the jwt token from
     const jwt: ExecutionContext =
-      context.switchToHttp().getRequest().cookie?.Authentication ||
-      context.switchToHttp().getRequest().headers?.Authentication;
+      context.switchToHttp().getRequest().cookies?.Authentication ||
+      context.switchToHttp().getRequest().headers?.authentication;
     if (!jwt) {
       return false;
     }
@@ -30,8 +30,8 @@ export class JwtAuthGuard implements CanActivate {
         Authentication: jwt,
       })
       .pipe(
-        // Allows us to execute a side effect on the incoming respose
-        tap((res) => {
+        // Allows us to execute a side effect on the incoming response
+        tap((res: UserDto) => {
           // Adding that incoming user to the current request object
           context.switchToHttp().getRequest().user = res;
         }),
