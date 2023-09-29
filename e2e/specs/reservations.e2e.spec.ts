@@ -1,8 +1,8 @@
-describe('Reservations', () => {
-  beforeAll(async () => {
+describe('Reservations', (): void => {
+  beforeAll(async (): Promise<void> => {
     const user = {
-      email: 'zubaku92@gmail.com',
-      password: 'StrongPassword123!@',
+      email: 'test@gmail.com',
+      password: 'randomStrongPassword123_/+',
     };
     await fetch('http://auth:3022/users', {
       method: 'POST',
