@@ -15,11 +15,11 @@ export class AuthController {
   @Post('login')
   async login(
     @CurrentUser() user: UsersDocument,
-    // Setting JWT as a HTTP cookie instead of plain text
+    // Setting JWT as an HTTP cookie instead of plain text
     @Res({ passthrough: true }) response: Response,
-  ) {
-    await this.authService.login(user, response);
-    response.send(user);
+  ): Promise<void> {
+    const jwt: string = await this.authService.login(user, response);
+    response.send(jwt);
   }
 
   @UseGuards(JwtAuthGuard)
