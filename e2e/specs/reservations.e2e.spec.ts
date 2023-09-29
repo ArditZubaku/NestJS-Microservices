@@ -1,4 +1,5 @@
 describe('Reservations', (): void => {
+  let jwt: string;
   beforeAll(async (): Promise<void> => {
     const user = {
       email: 'test@gmail.com',
@@ -18,11 +19,35 @@ describe('Reservations', (): void => {
         'Content-Type': 'application/json',
       },
     });
-    const jwt = await response.text();
-    console.log(jwt);
+    jwt = await response.text();
   });
 
   test('Create & Get', async () => {
-    expect(true).toBeTruthy();
+    const res: Response = await fetch('http://reservations:3021/reservations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authentication: jwt,
+      },
+      body: JSON.stringify({
+        startDate: '12-12/2023',
+        endDate: '12/24/2024',
+        placeId: '12345',
+        invoiceId: '499',
+        charge: {
+          amount: 5,
+          card: {
+            cvc: '413',
+            exp_month: 12,
+            exp_year: 2030,
+            number: '4242 4242 4242 4242',
+          },
+        },
+      }),
+    });
+    expect(res.ok).toBeTruthy();
+
+    const reservation = await res.json();
+    console.log(reservation);
   });
 });
