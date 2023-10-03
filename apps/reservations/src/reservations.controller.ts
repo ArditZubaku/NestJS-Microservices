@@ -13,7 +13,7 @@ import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationDocument } from './models/reservation.schema';
 import { FlattenMaps, Types } from 'mongoose';
-import { JwtAuthGuard, UserDto } from '@app/common';
+import { JwtAuthGuard, Roles, UserDto } from '@app/common';
 import { CurrentUser } from '@app/common';
 
 @Controller('reservations')
@@ -57,6 +57,7 @@ export class ReservationsController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
+  @Roles('Admin')
   remove(@Param('id') id: string): Promise<
     FlattenMaps<ReservationDocument> &
       Required<{

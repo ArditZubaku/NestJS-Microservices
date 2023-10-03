@@ -32,7 +32,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3021/reservations/64e50b8009aa07e482886693
+DELETE http://localhost:3021/reservations/651bf42fc301efbac9eb9b0e
 
 ###
 POST http://localhost:3021/reservations
@@ -65,8 +65,11 @@ POST http://localhost:3022/users
 Content-Type: application/json
 
 {
-  "email":"zubaku92@gmail.com",
-  "password": "randomStrongPassword123_/+"
+  "email":"newuser@gmail.com",
+  "password": "randomStrongPassword123_/+",
+  "roles": [
+    "Admin"
+  ]
 }
 
 ###
@@ -92,7 +95,8 @@ Content-Type: application/json
 
 {
   "email":"zubaku92@gmail.com",
-  "password": "randomStrongPassword123_/+"
+  "password": "randomStrongPassword123_/+",
+  "roles": ["Admin"]
 }
 
 #######################################################################################################
