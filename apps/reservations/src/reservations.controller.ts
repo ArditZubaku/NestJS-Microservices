@@ -11,7 +11,7 @@ import {
 import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
-import { JwtAuthGuard, Roles, UserDto } from '@app/common';
+import { JwtAuthGuard, Roles, User } from '@app/common';
 import { CurrentUser } from '@app/common';
 import { Reservation } from './models/reservation.entity';
 import { Observable } from 'rxjs';
@@ -24,7 +24,7 @@ export class ReservationsController {
   @Post()
   create(
     @Body() createReservationDto: CreateReservationDto,
-    @CurrentUser() user: UserDto,
+    @CurrentUser() user: User,
   ): Promise<Observable<Promise<Reservation>>> {
     return this.reservationsService.create(createReservationDto, user);
   }

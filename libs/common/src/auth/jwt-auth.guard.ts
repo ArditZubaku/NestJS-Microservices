@@ -9,7 +9,7 @@ import {
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { AUTH_SERVICE } from '../constants/services';
 import { ClientProxy } from '@nestjs/microservices';
-import { UserDto } from '../dto';
+import { User } from '../dto';
 import { Reflector } from '@nestjs/core';
 
 @Injectable()
@@ -42,12 +42,12 @@ export class JwtAuthGuard implements CanActivate {
     );
 
     return this.authClient
-      .send<UserDto>('authenticate', {
+      .send<User>('authenticate', {
         Authentication: jwt,
       })
       .pipe(
         // Allows us to execute a side effect on the incoming response
-        tap((res: UserDto) => {
+        tap((res: User) => {
           if (roles) {
             for (const role of roles) {
               if (!res.roles?.includes(role)) {
