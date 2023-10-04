@@ -1,5 +1,5 @@
 import { CurrentUser, User } from '@app/common';
-import { CreateUser } from './dto/create-user.dto';
+import { CreateUserDTO } from './dto/create-user.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { UsersService } from './users.service';
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
@@ -9,7 +9,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  async createUser(@Body() dto: CreateUser): Promise<User> {
+  async createUser(@Body() dto: CreateUserDTO): Promise<User> {
     return this.usersService.createUser(dto);
   }
 

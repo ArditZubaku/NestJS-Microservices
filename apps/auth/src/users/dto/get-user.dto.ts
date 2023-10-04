@@ -1,7 +1,6 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNumber } from 'class-validator';
 
-export class GetUser {
-  @IsString()
-  @IsNotEmpty()
-  _id: string;
+export class GetUserDTO {
+  @IsNumber()
+  id: number;
 }
