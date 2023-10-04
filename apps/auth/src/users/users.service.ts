@@ -5,7 +5,7 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UsersDocument } from '@app/common';
+import { User } from '@app/common';
 import * as bcrypt from 'bcryptjs';
 import { GetUserDto } from './dto/get-user.dto';
 
@@ -13,7 +13,7 @@ import { GetUserDto } from './dto/get-user.dto';
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async createUser(dto: CreateUserDto): Promise<UsersDocument> {
+  async createUser(dto: CreateUserDto): Promise<User> {
     await this.validateCreateUserDto(dto);
     return this.usersRepository.create({
       ...dto,
@@ -34,8 +34,8 @@ export class UsersService {
     throw new UnprocessableEntityException('Email already exists');
   }
 
-  async verifyUser(email: string, password: string): Promise<UsersDocument> {
-    const user: UsersDocument = await this.usersRepository.findOne({
+  async verifyUser(email: string, password: string): Promise<User> {
+    const user: User = await this.usersRepository.findOne({
       email,
     });
 

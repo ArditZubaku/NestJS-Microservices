@@ -4,7 +4,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { UsersService } from '../users/users.service';
 import { TokenPayload } from '../interfaces/token-payload.interface';
-import { UsersDocument } from '@app/common';
+import { User } from '@app/common';
 
 @Injectable()
 // Importing jwt one
@@ -28,7 +28,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   // Whatever we return from this gets populated into the request object
-  async validate({ userId }: TokenPayload): Promise<UsersDocument> {
+  async validate({ userId }: TokenPayload): Promise<User> {
     return this.usersService.getUser({ _id: userId });
   }
 }
