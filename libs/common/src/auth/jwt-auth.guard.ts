@@ -9,8 +9,8 @@ import {
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { AUTH_SERVICE } from '../constants/services';
 import { ClientProxy } from '@nestjs/microservices';
-import { User } from '../dto';
 import { Reflector } from '@nestjs/core';
+import { User } from '../models';
 
 @Injectable()
 // Expects to be passed a JWT cookie
@@ -50,7 +50,7 @@ export class JwtAuthGuard implements CanActivate {
         tap((res: User) => {
           if (roles) {
             for (const role of roles) {
-              if (!res.roles?.includes(role)) {
+              if (!res.roles?.map((role) => role.name).includes(role)) {
                 this.logger.error('The user does not have a valid role!');
                 throw new UnauthorizedException();
               }

@@ -15,7 +15,7 @@ export class ReservationsService {
   ) {}
   async create(
     createReservationDto: CreateReservationDto,
-    { email, _id: userId }: User,
+    { email, id: userId }: User,
   ): Promise<Observable<Promise<Reservation>>> {
     return this.paymentsService
       .send('create_charge', {
