@@ -8,12 +8,15 @@ import { Logger } from 'nestjs-pino';
 async function bootstrap() {
   const app: INestApplication = await NestFactory.create(PaymentsModule);
   const configService: ConfigService = app.get(ConfigService);
+
   app.connectMicroservice({
-    transport: Transport.TCP,
+    // RabbitMQ runs asynchronously so it doesn't overload like the TCP connection
+    transport: Transport.RMQ,
     options: {
-      // To bind to all the available IP adresses on the machine
-      host: '0.0.0.0',
-      port: configService.get('PORT'),
+      urls: [configService.getOrThrow('RABBITMQ_URI')],
+      queue: 'payments',
+      // Retries every time, bc the broker never gets the acknowledgement
+      noAck: false,
     },
   });
 
