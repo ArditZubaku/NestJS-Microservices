@@ -65,7 +65,7 @@ POST http://localhost:3022/users
 Content-Type: application/json
 
 {
-  "email":"test@gmail.com",
+  "email":"testrabbitmq@gmail.com",
   "password": "randomStrongPassword123_/+",
   "roles": [
     {
@@ -96,7 +96,7 @@ POST http://localhost:3022/auth/login
 Content-Type: application/json
 
 {
-  "email":"test@gmail.com",
+  "email":"testrabbitmq@gmail.com",
   "password": "randomStrongPassword123_/+"
 }
 

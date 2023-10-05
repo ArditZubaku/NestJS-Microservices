@@ -1,73 +1,168 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# NestJS-Microservices: Reservation Booking System
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This is a comprehensive, full-stack, real-world example of a reservation booking system built using NestJS. This system handles reservations, payments, email notifications, and persists data to a MongoDB database. It is structured as a microservices architecture and contains various branches demonstrating different implementations like MySQL with TypeORM and RabbitMQ.
 
-## Description
+> **Note**: This project was for learning purposes. Any secret keys committed before November 2nd are invalidated and no longer in use.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Installation
+## Architecture
+
+The project is structured into multiple apps and common libraries:
+
+### Microservices
+
+- **Reservations**: Handles all reservation logic.
+- **Auth**: Manages authentication and authorization.
+- **Payments**: Processes payments.
+- **Notifications**: Sends email notifications.
+
+### Other Components
+
+- Common Libraries: Shared code across all services.
+- Dockerfiles: For containerizing the applications.
+- Kubernetes Manifests: For orchestrating the deployment.
+
+---
+
+## Pre-requisites
+
+- Docker & Docker Compose
+- Node.js
+- PNPM (Package manager)
+- Kubernetes (Optional)
+
+---
+
+## Setup and Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/your-repo/nest-js-microservices.git
+   ```
+
+2. **Navigate to project directory**
+
+   ```bash
+   cd nest-js-microservices
+   ```
+
+3. **Install dependencies using PNPM**
+
+   ```bash
+   pnpm install
+   ```
+
+4. **Copy `.env.example` to `.env` for each app and fill in environment variables**
+
+   ```bash
+   cp apps/{service-name}/.env.example apps/{service-name}/.env
+   ```
+
+5. **Build and Start Services with Docker Compose**
+
+   ```bash
+   docker-compose up --build
+   ```
+
+---
+
+## Deployment
+
+### Local Deployment
+
+Follow the Setup and Installation steps above.
+
+### Google Cloud Deployment
+
+This project is also deployed on Google Cloud.
+
+---
+
+## Commands
+
+### Docker Compose
+
+Start services:
 
 ```bash
-$ pnpm install
+docker-compose up
 ```
 
-## Running the app
+Stop services:
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+docker-compose down
 ```
 
-## Test
+### NestJS
+
+Build the project:
 
 ```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+pnpm run build
 ```
 
-## Support
+Start in development:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+pnpm run start:dev {service-name}
+```
 
-## Stay in touch
+### Testing
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Run unit tests:
 
-## License
+```bash
+pnpm run test
+```
 
-Nest is [MIT licensed](LICENSE).
+Run unit tests in watch mode:
+
+```bash
+pnpm run test:watch
+```
+
+Run e2e tests:
+
+```bash
+pnpm run test:e2e
+```
+
+---
+
+## Branches
+
+- `typeorm`: Implementation with MySQL and TypeORM.
+- `rabbitmq`: Implementation using RabbitMQ for message brokering.
+
+---
+
+## Continuous Integration and Deployment
+
+The project includes Kubernetes manifests and Helm charts for deployment.
+
+### Kubernetes
+
+Apply Kubernetes manifests:
+
+```bash
+kubectl apply -f k8s/
+```
+
+### Helm
+
+Deploy using Helm:
+
+```bash
+helm install -f helm/values.yaml nest-js-microservices helm/
+```
+
+---
+
+## Contributing
+
+If you have suggestions or issues, please open an issue or create a PR.

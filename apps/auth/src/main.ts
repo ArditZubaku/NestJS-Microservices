@@ -11,13 +11,11 @@ async function bootstrap(): Promise<void> {
   // app.get allows us to retrieve any injectable
   const configService: ConfigService = app.get<ConfigService>(ConfigService);
 
-  // Listening for incoming TCP connections
   app.connectMicroservice({
-    transport: Transport.TCP,
+    transport: Transport.RMQ,
     options: {
-      // Bind to all interfaces on the host
-      host: '0.0.0.0',
-      port: configService.get('TCP_PORT'),
+      urls: [configService.getOrThrow('RABBITMQ_URI')],
+      queue: 'auth',
     },
   });
 
