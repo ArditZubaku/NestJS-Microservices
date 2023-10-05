@@ -4,23 +4,26 @@ import {
   UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UsersDocument } from '@app/common';
+import { CreateUserDTO } from './dto/create-user.dto';
+import { Role, User } from '@app/common';
 import * as bcrypt from 'bcryptjs';
-import { GetUserDto } from './dto/get-user.dto';
+import { GetUserDTO } from './dto/get-user.dto';
+import { RoleDTO } from './dto/role.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async createUser(dto: CreateUserDto): Promise<UsersDocument> {
-    await this.validateCreateUserDto(dto);
-    return this.usersRepository.create({
+  async createUser(dto: CreateUserDTO): Promise<User> {
+    await this.validateCreateUser(dto);
+    const user: User = new User({
       ...dto,
+      roles: dto.roles?.map((roleDTO: RoleDTO): Role => new Role(roleDTO)),
       password: await bcrypt.hash(dto.password, 15),
     });
+    return this.usersRepository.create(user);
   }
-  private async validateCreateUserDto(dto: CreateUserDto) {
+  private async validateCreateUser(dto: CreateUserDTO) {
     try {
       await this.usersRepository.findOne({
         email: dto.email,
@@ -34,8 +37,8 @@ export class UsersService {
     throw new UnprocessableEntityException('Email already exists');
   }
 
-  async verifyUser(email: string, password: string): Promise<UsersDocument> {
-    const user: UsersDocument = await this.usersRepository.findOne({
+  async verifyUser(email: string, password: string): Promise<User> {
+    const user: User = await this.usersRepository.findOne({
       email,
     });
 
@@ -50,11 +53,8 @@ export class UsersService {
     return user;
   }
 
-  getUser(dto: GetUserDto) {
-    // return this.usersRepository.findOne({
-    //   _id: dto._id,
-    // });
-    return this.usersRepository.findOne(dto);
+  getUser(dto: GetUserDTO) {
+    return this.usersRepository.findOne(dto, { roles: true });
   }
 
   getAllUsers() {
