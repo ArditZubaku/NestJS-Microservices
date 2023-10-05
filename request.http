@@ -21,14 +21,14 @@ Content-Type: application/json
 GET http://localhost:3021/reservations
 
 ###
-GET http://localhost:3021/reservations/64e50b8009aa07e482886693
+GET http://localhost:3021/reservations/1
 
 ###
-PATCH http://localhost:3021/reservations/64e50b8009aa07e482886693
+PATCH http://localhost:3021/reservations/1
 Content-Type: application/json
 
 {
-  "startDate": "12/10/2023"
+  "startDate": "12/10/2025"
 }
 
 ###
@@ -65,10 +65,12 @@ POST http://localhost:3022/users
 Content-Type: application/json
 
 {
-  "email":"newuser@gmail.com",
+  "email":"test@gmail.com",
   "password": "randomStrongPassword123_/+",
   "roles": [
-    "Admin"
+    {
+      "name":"Admin"
+    }
   ]
 }
 
@@ -94,9 +96,8 @@ POST http://localhost:3022/auth/login
 Content-Type: application/json
 
 {
-  "email":"zubaku92@gmail.com",
-  "password": "randomStrongPassword123_/+",
-  "roles": ["Admin"]
+  "email":"test@gmail.com",
+  "password": "randomStrongPassword123_/+"
 }
 
 #######################################################################################################

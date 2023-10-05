@@ -17,6 +17,7 @@ export class UsersService {
   async createUser(dto: CreateUserDTO): Promise<User> {
     await this.validateCreateUser(dto);
     const user: User = new User({
+      ...dto,
       roles: dto.roles?.map((roleDTO: RoleDTO): Role => new Role(roleDTO)),
       password: await bcrypt.hash(dto.password, 15),
     });
@@ -53,7 +54,7 @@ export class UsersService {
   }
 
   getUser(dto: GetUserDTO) {
-    return this.usersRepository.findOne(dto);
+    return this.usersRepository.findOne(dto, { roles: true });
   }
 
   getAllUsers() {
