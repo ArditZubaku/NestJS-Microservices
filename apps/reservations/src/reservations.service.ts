@@ -2,11 +2,10 @@ import { Inject, Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationsRepository } from './reservations.repository';
-import { ReservationDocument } from './models/reservation.schema';
-import { FlattenMaps, Types } from 'mongoose';
-import { PAYMENTS_SERVICE, UserDto } from '@app/common';
+import { Reservation } from './models/reservation.entity';
+import { PAYMENTS_SERVICE, User } from '@app/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable()
 export class ReservationsService {
@@ -16,8 +15,8 @@ export class ReservationsService {
   ) {}
   async create(
     createReservationDto: CreateReservationDto,
-    { email, _id: userId }: UserDto,
-  ) {
+    { email, id: userId }: User,
+  ): Promise<Observable<Promise<Reservation>>> {
     return this.paymentsService
       .send('create_charge', {
         ...createReservationDto.charge,
@@ -25,49 +24,44 @@ export class ReservationsService {
       })
       .pipe(
         // This will be executed after the response gets sent back successfully
-        map((res) => {
-          return this.reservationsRepository.create({
-            ...createReservationDto,
-            invoiceId: res.id,
-            timestamp: new Date(),
-            userId,
-          });
+        map((res): Promise<Reservation> => {
+          return this.reservationsRepository.create(
+            new Reservation({
+              ...createReservationDto,
+              invoiceId: res.id,
+              timestamp: new Date(),
+              userId,
+            }),
+          );
         }),
       );
   }
 
-  async findAll(): Promise<
-    (FlattenMaps<ReservationDocument> &
-      Required<{
-        _id: Types.ObjectId;
-      }>)[]
-  > {
+  async findAll(): Promise<Reservation[]> {
     return this.reservationsRepository.find({});
   }
 
-  async findOne(_id: string): Promise<ReservationDocument> {
+  async findOne(id: number): Promise<Reservation> {
     return this.reservationsRepository.findOne({
-      _id,
+      id,
     });
   }
 
-  async update(_id: string, updateReservationDto: UpdateReservationDto) {
+  async update(
+    id: number,
+    updateReservationDto: UpdateReservationDto,
+  ): Promise<Reservation> {
     return this.reservationsRepository.findOneAndUpdate(
       {
-        _id,
+        id,
       },
-      {
-        $set: updateReservationDto,
-      },
+      updateReservationDto,
     );
   }
 
-  async remove(_id: string): Promise<
-    FlattenMaps<ReservationDocument> &
-      Required<{
-        _id: Types.ObjectId;
-      }>
-  > {
-    return this.reservationsRepository.findOneAndDelete({ _id });
+  async remove(id: number): Promise<void> {
+    return this.reservationsRepository.findOneAndDelete({
+      id,
+    });
   }
 }

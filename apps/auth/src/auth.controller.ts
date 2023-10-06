@@ -1,7 +1,7 @@
 import { Controller, Post, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CurrentUser } from '@app/common';
-import { UsersDocument } from '@app/common';
+import { User } from '@app/common';
 import { Response } from 'express';
 import { LocalAuthGuard } from './users/guards/local-auth.guard';
 import { MessagePattern, Payload } from '@nestjs/microservices';
@@ -14,7 +14,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(
-    @CurrentUser() user: UsersDocument,
+    @CurrentUser() user: User,
     // Setting JWT as an HTTP cookie instead of plain text
     @Res({ passthrough: true }) response: Response,
   ): Promise<void> {
