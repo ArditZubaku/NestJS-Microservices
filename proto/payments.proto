@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package payments;
+
+service PaymentsService {
+    // Which method to export
+    rpc CreateCharge (CreateChargeMessage) returns (CreateChargeResponse) {}
+}
+
+message CreateChargeMessage {
+    string email = 1;
+    int32 amount = 2;
+    CardMessage card = 3;
+}
+
+// Can't use underscores
+message CardMessage {
+    string cvc = 1;
+    int32 expMonth = 2;
+    int32 expYear = 3;
+    string number = 4;
+}
+
+message CreateChargeResponse {
+    string id = 1;
+}

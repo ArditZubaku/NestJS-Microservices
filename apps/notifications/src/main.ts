@@ -8,13 +8,12 @@ import { Logger } from 'nestjs-pino';
 async function bootstrap() {
   const app: INestApplication = await NestFactory.create(NotificationsModule);
   const configService: ConfigService = app.get(ConfigService);
+
   app.connectMicroservice({
-    transport: Transport.TCP,
+    transport: Transport.RMQ,
     options: {
-      // To bind to all the available IP adresses on the machine
-      host: '0.0.0.0',
-      // Where we are listening
-      port: configService.get('PORT'),
+      urls: [configService.getOrThrow('RABBITMQ_URI')],
+      queue: 'notifications',
     },
   });
 
