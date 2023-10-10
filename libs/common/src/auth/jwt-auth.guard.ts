@@ -10,7 +10,11 @@ import {
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { ClientGrpc } from '@nestjs/microservices';
 import { Reflector } from '@nestjs/core';
-import { AUTH_SERVICE_NAME, AuthServiceClient } from '@app/common/types';
+import {
+  AUTH_SERVICE_NAME,
+  AuthServiceClient,
+  UserMessage,
+} from '@app/common/types';
 
 @Injectable()
 // Expects to be passed a JWT cookie
@@ -46,7 +50,7 @@ export class JwtAuthGuard implements CanActivate, OnModuleInit {
         Authentication: jwt,
       })
       .pipe(
-        tap((res) => {
+        tap((res: UserMessage): void => {
           if (roles) {
             for (const role of roles) {
               if (!res.roles?.includes(role)) {
@@ -59,7 +63,7 @@ export class JwtAuthGuard implements CanActivate, OnModuleInit {
             ...res,
           };
         }),
-        map(() => true),
+        map((): boolean => true),
         catchError((err) => {
           this.logger.error(err);
           return of(false);
