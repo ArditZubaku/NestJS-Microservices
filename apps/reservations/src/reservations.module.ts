@@ -3,18 +3,18 @@ import { ReservationsService } from './reservations.service';
 import { ReservationsController } from './reservations.controller';
 import {
   AUTH_PACKAGE_NAME,
+  AUTH_SERVICE_NAME,
   DatabaseModule,
   HealthModule,
   LoggerModule,
   PAYMENTS_PACKAGE_NAME,
-  PAYMENTS_SERVICE,
+  PAYMENTS_SERVICE_NAME,
 } from '@app/common';
 import { ReservationsRepository } from './reservations.repository';
 import { Reservation } from './models/reservation.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import Joi from 'joi';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { AUTH_SERVICE } from '@app/common';
 import { join } from 'path';
 
 @Module({
@@ -37,7 +37,7 @@ import { join } from 'path';
     ClientsModule.registerAsync([
       // Each entry in the array is a different client
       {
-        name: AUTH_SERVICE,
+        name: AUTH_SERVICE_NAME,
         inject: [ConfigService],
         useFactory: (configService: ConfigService) => ({
           transport: Transport.GRPC,
@@ -49,7 +49,7 @@ import { join } from 'path';
         }),
       },
       {
-        name: PAYMENTS_SERVICE,
+        name: PAYMENTS_SERVICE_NAME,
         inject: [ConfigService],
         useFactory: (configService: ConfigService) => ({
           transport: Transport.GRPC,
