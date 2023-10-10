@@ -1,14 +1,19 @@
 import { Controller, Post, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CurrentUser } from '@app/common';
+import {
+  AuthServiceController,
+  AuthServiceControllerMethods,
+  CurrentUser,
+} from '@app/common';
 import { User } from '@app/common';
 import { Response } from 'express';
 import { LocalAuthGuard } from './users/guards/local-auth.guard';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import { Payload } from '@nestjs/microservices';
 import { JwtAuthGuard } from './users/guards/jwt-auth.guard';
 
 @Controller('auth')
-export class AuthController {
+@AuthServiceControllerMethods()
+export class AuthController implements AuthServiceController {
   constructor(private readonly authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
@@ -22,9 +27,8 @@ export class AuthController {
     response.send(jwt);
   }
 
-  @UseGuards(JwtAuthGuard)
-  // Allows us to accept incoming RPC calls
-  @MessagePattern('authenticate')
+  @UseGuards(JwtAuthGuard) // The user is provided by the jwt strategy
+  // In this case we gotta use the @Payload() bc it doesnt expect this to be coming in from our local strategy
   async authenticate(@Payload() data: any) {
     return data.user;
   }

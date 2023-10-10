@@ -1,6 +1,5 @@
 import { Controller, UsePipes, ValidationPipe } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
-import { Payload } from '@nestjs/microservices';
 import { NotifyEmailDto } from './dto/notify-email.dto';
 import {
   NotificationsServiceController,

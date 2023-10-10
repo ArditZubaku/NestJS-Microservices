@@ -20,7 +20,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
           // From express or RPC
           request?.cookies?.Authentication ||
           request?.Authentication ||
-          request?.headers.Authentication,
+          // In our case with gRPC there are no headers, so we gotta check first
+          request?.headers?.Authentication,
       ]),
       // The value that it will use to decode it and verify the cookie
       secretOrKey: configService.get<string>('JWT_SECRET'),
