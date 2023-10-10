@@ -26,11 +26,12 @@ import { join } from 'path';
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
-        PORT: Joi.number().required(),
-        AUTH_HOST: Joi.string().required(),
-        AUTH_PORT: Joi.number().required(),
-        PAYMENTS_HOST: Joi.string().required(),
-        PAYMENTS_PORT: Joi.number().required(),
+        MYSQL_DATABASE: Joi.string().required(),
+        MYSQL_ROOT_PASSWORD: Joi.string().required(),
+        MYSQL_HOST: Joi.string().required(),
+        MYSQL_PORT: Joi.number().required(),
+        MYSQL_USERNAME: Joi.string().required(),
+        MYSQL_SYNCHRONIZE: Joi.boolean().required(),
       }),
     }),
     ClientsModule.registerAsync([

@@ -7,7 +7,6 @@ import {
   LoggerModule,
   NOTIFICATIONS_PACKAGE_NAME,
   NOTIFICATIONS_SERVICE,
-  PAYMENTS_PACKAGE_NAME,
 } from '@app/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
@@ -18,10 +17,7 @@ import { join } from 'path';
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
-        PORT: Joi.number().required(),
         STRIPE_SECRET_KEY: Joi.string().required(),
-        NOTIFICATIONS_HOST: Joi.string().required(),
-        NOTIFICATIONS_PORT: Joi.number().required(),
       }),
     }),
     LoggerModule,
