@@ -4,22 +4,26 @@ import {
   Inject,
   Injectable,
   Logger,
+  OnModuleInit,
   UnauthorizedException,
 } from '@nestjs/common';
 import { Observable, catchError, map, of, tap } from 'rxjs';
-import { AUTH_SERVICE } from '../constants/services';
-import { ClientProxy } from '@nestjs/microservices';
+import { ClientGrpc } from '@nestjs/microservices';
 import { Reflector } from '@nestjs/core';
-import { User } from '../models';
+import {
+  AUTH_SERVICE_NAME,
+  AuthServiceClient,
+  UserMessage,
+} from '@app/common/types';
 
 @Injectable()
 // Expects to be passed a JWT cookie
-export class JwtAuthGuard implements CanActivate {
+export class JwtAuthGuard implements CanActivate, OnModuleInit {
   private readonly logger: Logger = new Logger(JwtAuthGuard.name);
-
+  private authService: AuthServiceClient;
   // This will allow us to communicate to other microservices via the provided transport layer
   constructor(
-    @Inject(AUTH_SERVICE) private readonly authClient: ClientProxy,
+    @Inject(AUTH_SERVICE_NAME) private readonly client: ClientGrpc,
     //Get access to the decorator and its metadata
     private readonly reflector: Reflector,
   ) {}
@@ -41,31 +45,34 @@ export class JwtAuthGuard implements CanActivate {
       context.getHandler(),
     );
 
-    return this.authClient
-      .send<User>('authenticate', {
+    return this.authService
+      .authenticate({
         Authentication: jwt,
       })
       .pipe(
-        // Allows us to execute a side effect on the incoming response
-        tap((res: User) => {
+        tap((res: UserMessage): void => {
           if (roles) {
             for (const role of roles) {
-              if (!res.roles?.map((role) => role.name).includes(role)) {
-                this.logger.error('The user does not have a valid role!');
+              if (!res.roles?.includes(role)) {
+                this.logger.error('The user does not have valid roles.');
                 throw new UnauthorizedException();
               }
             }
           }
-          // Adding that incoming user to the current request object
-          context.switchToHttp().getRequest().user = res;
+          context.switchToHttp().getRequest().user = {
+            ...res,
+          };
         }),
-        // Return true if we have a successful response back from the auth microservice => canActivate proceeds
         map((): boolean => true),
-        // Returns false if any error occurs => the error will be returned by the service that is being injected
-        catchError((error): Observable<boolean> => {
-          this.logger.error(error);
+        catchError((err) => {
+          this.logger.error(err);
           return of(false);
         }),
       );
+  }
+
+  onModuleInit(): any {
+    this.authService =
+      this.client.getService<AuthServiceClient>(AUTH_SERVICE_NAME);
   }
 }

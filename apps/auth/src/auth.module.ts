@@ -17,9 +17,9 @@ import { JwtStrategy } from './strategies/jwt.strategy';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService): JwtModuleOptions => ({
-        secret: configService.get<string>('JWT_SECRET'),
+        secret: configService.getOrThrow<string>('JWT_SECRET'),
         signOptions: {
-          expiresIn: `${configService.get<number>('JWT_EXPIRATION')}s`, // In seconds
+          expiresIn: `${configService.getOrThrow<number>('JWT_EXPIRATION')}s`, // In seconds
         },
       }),
     }),
@@ -30,7 +30,12 @@ import { JwtStrategy } from './strategies/jwt.strategy';
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRATION: Joi.number().required(),
         HTTP_PORT: Joi.number().required(),
-        TCP_PORT: Joi.number().required(),
+        MYSQL_DATABASE: Joi.string().required(),
+        MYSQL_ROOT_PASSWORD: Joi.string().required(),
+        MYSQL_HOST: Joi.string().required(),
+        MYSQL_PORT: Joi.number().required(),
+        MYSQL_USERNAME: Joi.string().required(),
+        MYSQL_SYNCHRONIZE: Joi.boolean().required(),
       }),
     }),
     HealthModule,
