@@ -24,27 +24,27 @@ export class PaymentsService {
     },
   );
 
-  async createCharge({ card, amount, email }: PaymentsCreateChargeDto) {
-    const paymentMethod: Stripe.Response<Stripe.PaymentMethod> =
-      await this.stripe.paymentMethods.create({
-        type: 'card',
-        card: {
-          cvc: card.cvc,
-          number: card.number,
-          exp_month: card.expMonth,
-          exp_year: card.expYear,
-        },
-      });
+  async createCharge({ /* card */ amount, email }: PaymentsCreateChargeDto) {
+    // const paymentMethod: Stripe.Response<Stripe.PaymentMethod> =
+    // await this.stripe.paymentMethods.create({
+    //   type: 'card',
+    //   card: {
+    //     cvc: card.cvc,
+    //     number: card.number,
+    //     exp_month: card.expMonth,
+    //     exp_year: card.expYear,
+    //   },
+    // });
 
     const paymentIntent: Stripe.Response<Stripe.PaymentIntent> =
       await this.stripe.paymentIntents.create({
         // References the paymentMethod above, so it charges its card correctly
-        payment_method: paymentMethod.id, // Commented it out to use the ones that test card that Stripe offers instead of our custom one.
+        // payment_method: paymentMethod.id, // Commented it out to use the ones that test card that Stripe offers instead of our custom one.
         amount: amount * 100, // Cents -> Euro
         confirm: true, // charge the user immediately
-        payment_method_types: ['card'], // Reason above
+        // payment_method_types: ['card'], // Reason above
         currency: 'eur',
-        // payment_method: 'pm_card_visa', // The Stripe one
+        payment_method: 'pm_card_visa', // The Stripe one
         automatic_payment_methods: {
           enabled: true,
           allow_redirects: 'never',

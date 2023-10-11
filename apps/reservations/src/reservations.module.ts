@@ -13,7 +13,7 @@ import {
 import { ReservationsRepository } from './reservations.repository';
 import { Reservation } from './models/reservation.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import Joi from 'joi';
+import * as Joi from 'joi';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
 

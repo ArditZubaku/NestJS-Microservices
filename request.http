@@ -10,8 +10,8 @@ Content-Type: application/json
     "amount": 5,
     "card": {
       "cvc": "413",
-      "exp_month": 12,
-      "exp_year": 2030,
+      "expMonth": 12,
+      "expYear": 2030,
       "number": "4242 4242 4242 4242"
     }
   }
@@ -80,7 +80,7 @@ Content-Type: application/json
 
 {
   "email":"test@gmail.com",
-  "password": "123"
+  "password": "randomStrongPassword123_"
 }
 
 ###
@@ -96,8 +96,8 @@ POST http://localhost:3022/auth/login
 Content-Type: application/json
 
 {
-  "email":"testrabbitmq@gmail.com",
-  "password": "randomStrongPassword123_/+"
+  "email":"test@gmail.com",
+  "password": "randomStrongPassword123_"
 }
 
 #######################################################################################################

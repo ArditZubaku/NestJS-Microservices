@@ -9,6 +9,7 @@ import { LoggerModule as PinoLoggerModule } from 'nestjs-pino';
           target: 'pino-pretty',
           options: {
             singleLine: true,
+            colorize: true,
           },
         },
       },

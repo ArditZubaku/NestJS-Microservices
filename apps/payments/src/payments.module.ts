@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { PaymentsController } from './payments.controller';
 import { PaymentsService } from './payments.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import Joi from 'joi';
+import * as Joi from 'joi';
 import {
   LoggerModule,
   NOTIFICATIONS_PACKAGE_NAME,
