@@ -21,6 +21,7 @@ import {
   ApolloFederationDriver,
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo';
+import { ReservationsResolver } from './reservations.resolver';
 
 @Module({
   imports: [
@@ -78,6 +79,10 @@ import {
     HealthModule,
   ],
   controllers: [ReservationsController],
-  providers: [ReservationsService, ReservationsRepository],
+  providers: [
+    ReservationsService,
+    ReservationsRepository,
+    ReservationsResolver,
+  ],
 })
 export class ReservationsModule {}
