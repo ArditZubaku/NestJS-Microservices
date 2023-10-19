@@ -7,7 +7,7 @@ import {
 } from 'class-validator';
 import { CreateChargeDto } from '@app/common';
 
-export class CreateReservationDto {
+export class CreateReservationDTO {
   @IsDate()
   @Type(() => Date)
   startDate: Date;

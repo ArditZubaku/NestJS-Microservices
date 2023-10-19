@@ -16,12 +16,25 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
+import { GraphQLModule } from '@nestjs/graphql';
+import {
+  ApolloFederationDriver,
+  ApolloFederationDriverConfig,
+} from '@nestjs/apollo';
 
 @Module({
   imports: [
     DatabaseModule,
     DatabaseModule.forFeature([Reservation]),
     LoggerModule,
+    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
+      driver: ApolloFederationDriver,
+      // Auto-generates the GraphQL schema from the code
+      autoSchemaFile: {
+        // federation version
+        federation: 2,
+      },
+    }),
     // Setting up the config module separately for each app
     ConfigModule.forRoot({
       isGlobal: true,
