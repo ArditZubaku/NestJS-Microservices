@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo';
-import { IntrospectAndCompose } from '@apollo/gateway';
+import { IntrospectAndCompose, RemoteGraphQLDataSource } from '@apollo/gateway';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { authContext } from './auth.context';
 
@@ -28,6 +28,17 @@ import { authContext } from './auth.context';
               },
             ],
           }),
+          buildService: ({ url }) => {
+            return new RemoteGraphQLDataSource({
+              url,
+              willSendRequest({ request, context }) {
+                request.http.headers.set(
+                  'user',
+                  context.user ? JSON.stringify(context.user) : null,
+                );
+              },
+            });
+          },
         },
       }),
       inject: [ConfigService],
