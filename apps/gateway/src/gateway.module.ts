@@ -5,12 +5,17 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo';
 import { IntrospectAndCompose } from '@apollo/gateway';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { authContext } from './auth.context';
 
 @Module({
   imports: [
     GraphQLModule.forRootAsync<ApolloGatewayDriverConfig>({
       driver: ApolloGatewayDriver,
       useFactory: (configService: ConfigService) => ({
+        server: {
+          // Will call the authContext function every time a GraphQL request is sent to the gateway
+          context: authContext,
+        },
         gateway: {
           // The map for all the other subgraphs/GraphQL microservices
           supergraphSdl: new IntrospectAndCompose({
