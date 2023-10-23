@@ -53,11 +53,11 @@ export class UsersService {
     return user;
   }
 
-  getUser(dto: GetUserDTO) {
+  async getUser(dto: GetUserDTO) {
     return this.usersRepository.findOne(dto, { roles: true });
   }
 
-  getAllUsers() {
+  async getAllUsers() {
     return this.usersRepository.find({});
   }
 }
