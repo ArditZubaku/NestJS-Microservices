@@ -10,6 +10,10 @@ import { PaymentsCreateChargeDto } from './dto/payments-create-charge.dto';
 
 @Injectable()
 export class PaymentsService {
+  async getPayments() {
+    const payments = await this.stripe.paymentIntents.list();
+    return payments.data;
+  }
   private notificationsService: NotificationsServiceClient;
   constructor(
     private readonly configService: ConfigService,
