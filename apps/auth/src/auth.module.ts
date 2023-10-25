@@ -8,6 +8,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriverConfig, ApolloFederationDriver } from '@nestjs/apollo';
 
 @Module({
   imports: [
@@ -22,6 +24,12 @@ import { JwtStrategy } from './strategies/jwt.strategy';
           expiresIn: `${configService.getOrThrow<number>('JWT_EXPIRATION')}s`, // In seconds
         },
       }),
+    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloFederationDriver,
+      autoSchemaFile: {
+        federation: 2,
+      },
     }),
     // Setting up the config module separately for each app
     ConfigModule.forRoot({

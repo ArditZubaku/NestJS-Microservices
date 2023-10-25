@@ -1,5 +1,5 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
-import { CreateReservationDto } from './dto/create-reservation.dto';
+import { CreateReservationDTO } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationsRepository } from './reservations.repository';
 import { Reservation } from './models/reservation.entity';
@@ -19,7 +19,7 @@ export class ReservationsService implements OnModuleInit {
     @Inject(PAYMENTS_SERVICE_NAME) private readonly client: ClientGrpc,
   ) {}
   async create(
-    createReservationDto: CreateReservationDto,
+    createReservationDto: CreateReservationDTO,
     { email, id: userId }: User,
   ): Promise<Observable<Promise<Reservation>>> {
     return this.paymentsService

@@ -1,7 +1,7 @@
-import { CreateChargeDto } from '@app/common';
+import { CreateChargeDTO } from '@app/common';
 import { IsEmail } from 'class-validator';
 
-export class PaymentsCreateChargeDto extends CreateChargeDto {
+export class PaymentsCreateChargeDto extends CreateChargeDTO {
   @IsEmail()
   email: string;
 }
